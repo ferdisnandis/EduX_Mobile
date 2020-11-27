@@ -9,15 +9,18 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 //Páginas
 import Login from './pages/login'
-import Home from './pages/home'
+import Turma from './pages/turma'
+import Ranking from './pages/ranking'
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 //Navegação pelo menu lateral
 const Autenticado = () => {
   return(
-    <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={Home} />
+    <Drawer.Navigator initialRouteName="Ranking">
+      <Drawer.Screen name="Ranking" component={Ranking} />
+      <Drawer.Screen name="Turma" component={Turma} />
     </Drawer.Navigator>
   )
 }
@@ -25,7 +28,7 @@ const Autenticado = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown : false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Autenticado" component={Autenticado} />
       </Stack.Navigator>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const Home = () => {
+const Ranking = () => {
     return(
         <View>
-            <Text>HOME</Text>
+            <Text>Ranking</Text>
         </View>
     )
 }
 
-export default Home;
+export default Ranking;
