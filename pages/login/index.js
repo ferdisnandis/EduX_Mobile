@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { url } from '../../utils/constants'
-//Storage
-//import AsyncStorage from '@react-native-async-storage/async-storage'
+// Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    //const salvarToken = async (value) => {}
+    const salvarToken = async (value) => {
+        try {
+          await AsyncStorage.setItem('@jwt', value)
+        } catch (e) {
+          // saving error
+        }
+    }
 
     const Logar = () => {
         const corpo = {
@@ -26,10 +32,11 @@ const Login = ({navigation}) => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+          //  console.log(data)
             if(data.status != 401){
                 alert('Seja bem vind@!');
-                console.log(data.token);
+          //      console.log(data.token);
+                salvarToken(data.token);
                 navigation.push('Autenticado')
             } else {
                 alert('Dados Inválidos')
