@@ -5,9 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Ranking = () => {
     const [objAluno, setObjetivoAluno] = useState([]);
+    const [alunoTurma, setAlunoTurma ] = useState([]); 
 
     useEffect(() => { 
-        ListarObjAluno()
+        ListarObjAluno(),
+        ListarAlunoTurma()
     })
 
     const ListarObjAluno = () => {
@@ -24,9 +26,21 @@ const Ranking = () => {
         .catch(err => console.error(err))
     }
 
-        const Item = ({ nota, nome }) => (
+    const ListarAlunoTurma = () => {
+        fetch(url + 'AlunoTurma', {
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            setAlunoTurma(data.data);
+        })
+        .catch(err => console.error(err))
+    }
+
+        const Item = ({ nota }) => (
             <View style={styles.item}>
-              <Text>{nome}</Text>   
               <Text style={styles.title}>{nota}</Text>
             </View>
           );
