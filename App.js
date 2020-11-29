@@ -11,6 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './pages/login'
 import Turma from './pages/turma'
 import Ranking from './pages/ranking'
+import Postagens from './pages/postagens'
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -21,6 +22,7 @@ const Autenticado = () => {
     <Drawer.Navigator initialRouteName="Ranking">
       <Drawer.Screen name="Ranking" component={Ranking} />
       <Drawer.Screen name="Turma" component={Turma} />
+      <Drawer.Screen name= "Postagens" components={Postagens} />
     </Drawer.Navigator>
   )
 }

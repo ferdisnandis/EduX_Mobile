@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { url } from '../../utils/constants'
 
 const Postagens = () => {
     const [texto, setTexto] = useState('');
     const [dica, setDica] = useState([]);
     const [curtidas, setCurtidas] = useState('');
+    const [value, onChangeText] = React.useState('Dê sua dica aqui!!! limite de 250 caracteries');
 
     useEffect(() => {
         Listar();
@@ -30,13 +32,6 @@ const Postagens = () => {
             method: 'POST',
             body: formdata,
         })
-            .then(response => {
-                if (response.ok) {
-                    window.location.reload(); 
-                    //arumar isso ^
-                }
-            })
-
             .catch(err => console.error(err))
     }
 
@@ -50,21 +45,48 @@ const Postagens = () => {
             method: 'POST',
             body: formdata,
         })
-            .then(response => {
-                if (response.ok) {
-                    window.location.reload();
-                    //arumar isso ^
-                }
-            })
-
             .catch(err => console.error(err))
     }
-    
-    return(
-        <View>
-            <Text>Postagens</Text>
-        </View>
-    )
-}
+    const UselessTextInput = (props) => {
+        return (
+            <TextInput
+                {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
+                editable
+                maxLength={250}
+            />
+        );
+    }
 
+    const renderItem = (item) => {
+        return (
+            <View
+                style={{
+                    backgroundColor: value,
+                    borderBottomColor: '#000000',
+                    borderBottomWidth: 1,
+                }}>
+                <UselessTextInput
+                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    onChangeText={text => onChangeText(text)}
+                    value={value}
+                />
+                <Button
+                    title="Enviar"
+                    onPress={(event => { Salvar(event) })}
+                />
+                <View>
+                    <Text style={styles.baseText}>
+                        <Text style={styles.titleText} onPress={onPressTitle}>
+                            {dica.Listar}
+                            {"\n"}
+                            {"\n"}
+                        </Text>
+                        <Text numberOfLines={5}>{bodyText}</Text>
+                    </Text>
+                </View>
+            </View>
+
+        );
+    }
+}
 export default Postagens;
