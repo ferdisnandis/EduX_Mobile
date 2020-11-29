@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { url } from '../../utils/constants'
-//Storage
-//import AsyncStorage from '@react-native-async-storage/async-storage'
+import logo_branco from '../../assets/logo_branco_EduX.png'
+// Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    //const salvarToken = async (value) => {}
+    const salvarToken = async (value) => {
+        try {
+          await AsyncStorage.setItem('@jwt', value)
+        } catch (e) {
+          // saving error
+        }
+    }
 
     const Logar = () => {
         const corpo = {
@@ -26,10 +33,11 @@ const Login = ({navigation}) => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+          //  console.log(data)
             if(data.status != 401){
                 alert('Seja bem vind@!');
-                console.log(data.token);
+          //      console.log(data.token);
+                salvarToken(data.token);
                 navigation.push('Autenticado')
             } else {
                 alert('Dados Inválidos')
@@ -40,7 +48,8 @@ const Login = ({navigation}) => {
     return(
         <View style={styles.container}>
 
-        
+            <Image style={styles.logo} source={logo_branco}/>
+
             <TextInput
             style={styles.input}
             onChangeText={text => setEmail(text)}
@@ -69,18 +78,20 @@ const Login = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#B126DE',
       alignItems: 'center',
       justifyContent: 'center',
     },
     input : {
         width: '90%',
+        backgroundColor: 'white',
         height : 40, 
         borderColor: 'gray', 
         borderWidth: 1, 
         marginTop : 20, 
         padding: 5,
-        borderRadius: 6
+        borderRadius: 6,
+        fontSize : '15px'
     },
     button: {
         backgroundColor : 'black',
@@ -93,7 +104,12 @@ const styles = StyleSheet.create({
 
     },
     textButton : {
-        color : 'white'
+        color : 'white',
+    },
+    logo: {
+        width:'200px',
+        height: '130px',
+        resizeMode: 'stretch'
     }
   });
 
