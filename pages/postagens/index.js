@@ -4,27 +4,27 @@ import { url } from '../../utils/constants'
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     item: {
         backgroundColor: '#f9c2ff',
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
-      },
-      title: {
+    },
+    title: {
         fontSize: 32,
-      },
+    },
 });
 
 const Postagens = () => {
-    const [ Dicas, setDicas] = useState([]);
-    
-    
-    useEffect(() => { 
+    const [Dicas, setDicas] = useState([]);
+
+
+    useEffect(() => {
         ListarDica()
     })
 
@@ -33,35 +33,71 @@ const Postagens = () => {
     const ListarDica = () => {
         fetch(url + 'ObjetivoAluno', {
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            setDicas(data.data);
-        })
-        
-        .catch(err => console.error(err))
+            .then(response => response.json())
+            .then(data => {
+                setDicas(data.data);
+            })
+
+            .catch(err => console.error(err))
     }
-    
+
+    const Salvar = (event) => {
+        event.preventDefault();
+        let formdata = new FormData();
+
+        formdata.append('IdUsuario', localStorage.getItem('idUsuario'));
+        formdata.append('Texto', texto);
+        fetch(url + 'dica', {
+            method: 'POST',
+            body: formdata,
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                }
+            })
+
+            .catch(err => console.error(err))
+    }
+
     const Item = ({ texto }) => (
         <View style={styles.item}>
-          <Text style={styles.title}>{texto}</Text>
+            <Text style={styles.title}>{texto}</Text>
         </View>
-      );
+    );
 
     const renderItem = ({ item }) => (
         <Item texto={item.texto} />
-        );
+    );
+
 
     return (
-        <View styles={styles.container}>
-            <Text>Dicas</Text>
-            <FlatList
-            data={Dicas}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-             />
+        <View
+            style={{
+                backgroundColor: value,
+                borderBottomColor: '#000000',
+                borderBottomWidth: 1,
+            }}>
+            <UselessTextInput
+                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                onChangeText={text => onChangeText(text)}
+                value={value}
+            />
+            <Button
+                title="Enviar"
+                onPress={(event => { Salvar(event) })}
+            />
+            <View styles={styles.container}>
+                <Text>Dicas</Text>
+                <FlatList
+                    data={Dicas}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
+            </View>
         </View>
     )
 }
