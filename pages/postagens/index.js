@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { url } from '../../utils/constants'
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { url } from '../../utils/constants';
 
 const styles = StyleSheet.create({
     container: {
@@ -20,18 +20,16 @@ const styles = StyleSheet.create({
     },
 });
 
-const Postagens = () => {
-    const [Dicas, setDicas] = useState([]);
 
+const Postagens = () => {
+    const [dica, setDicas] = useState([]);
 
     useEffect(() => {
-        ListarDica()
-    })
+        ListarDicas()
+    },[])
 
-
-
-    const ListarDica = () => {
-        fetch(url + 'ObjetivoAluno', {
+    const ListarDicas = () => {
+        fetch( url + 'dica', {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -39,25 +37,7 @@ const Postagens = () => {
             .then(response => response.json())
             .then(data => {
                 setDicas(data.data);
-            })
-
-            .catch(err => console.error(err))
-    }
-
-    const Salvar = (event) => {
-        event.preventDefault();
-        let formdata = new FormData();
-
-        formdata.append('IdUsuario', localStorage.getItem('idUsuario'));
-        formdata.append('Texto', texto);
-        fetch(url + 'dica', {
-            method: 'POST',
-            body: formdata,
-        })
-            .then(response => {
-                if (response.ok) {
-                    window.location.reload();
-                }
+                console.log(data.data)
             })
 
             .catch(err => console.error(err))
@@ -73,32 +53,19 @@ const Postagens = () => {
         <Item texto={item.texto} />
     );
 
-
     return (
-        <View
-            style={{
-                backgroundColor: value,
-                borderBottomColor: '#000000',
-                borderBottomWidth: 1,
-            }}>
-            <UselessTextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={text => onChangeText(text)}
-                value={value}
+        <View styles={styles.container}>
+            <Text>
+                Postagens
+            </Text>
+            <FlatList
+                data={dica}
+                renderItem={renderItem}
+                keyExtractor={item => item.Id}
             />
-            <Button
-                title="Enviar"
-                onPress={(event => { Salvar(event) })}
-            />
-            <View styles={styles.container}>
-                <Text>Dicas</Text>
-                <FlatList
-                    data={Dicas}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                />
-            </View>
-        </View>
+        </View >
     )
 }
+
+
 export default Postagens;
