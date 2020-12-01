@@ -5,38 +5,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Ranking = () => {
     const [objAluno, setObjetivoAluno] = useState([]);
-    const [alunoTurma, setAlunoTurma ] = useState([]); 
+    const [alunoTurma, setAlunoTurma] = useState([]);
 
-    useEffect(() => { 
+    useEffect(() => {
         ListarObjAluno(),
-        ListarAlunoTurma()
+            ListarAlunoTurma()
     })
 
     const ListarObjAluno = () => {
         fetch(url + 'ObjetivoAluno', {
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            setObjetivoAluno(data.data);
-        })
-        
-        .catch(err => console.error(err))
+            .then(response => response.json())
+            .then(data => {
+                setObjetivoAluno(data.data);
+                console.log(data.data)
+            })
+
+            .catch(err => console.error(err))
     }
 
     const ListarAlunoTurma = () => {
         fetch(url + 'AlunoTurma', {
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            setAlunoTurma(data.data);
-        })
-        .catch(err => console.error(err))
+            .then(response => response.json())
+            .then(data => {
+                setAlunoTurma(data.data);
+            })
+            .catch(err => console.error(err))
     }
 
         const Item = ({ nota, nome }) => (
@@ -56,10 +57,10 @@ const Ranking = () => {
                 data={objAluno}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
-                 />
-            </View>
-        )
-    }
+            />
+        </View>
+    )
+}
 
     const styles = StyleSheet.create({
         container: {
