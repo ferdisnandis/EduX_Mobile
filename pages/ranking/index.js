@@ -39,19 +39,19 @@ const Ranking = () => {
         .catch(err => console.error(err))
     }
 
-        const Item = ({ nota }) => (
+        const Item = ({ nota, nome }) => (
             <View style={styles.item}>
               <Text style={styles.title}>{nota}</Text>
+              <Text style={styles.title}>{nome}</Text> 
             </View>
           );
           
         const renderItem = ({ item }) => (
-            <Item nota={item.nota} />
+            <Item nota={item.nota} nome={item.alunoTurma.usuario.nome} />
             );
 
         return (
             <View styles={styles.container}>
-                <Text>Ranking</Text>
                 <FlatList
                 data={objAluno}
                 renderItem={renderItem}
@@ -69,13 +69,13 @@ const Ranking = () => {
           justifyContent: 'center',
         },
         item: {
-            backgroundColor: '#f9c2ff',
+            backgroundColor: '#6BFAA0',
             padding: 20,
             marginVertical: 8,
             marginHorizontal: 16,
           },
           title: {
-            fontSize: 32,
+            fontSize: '16px',
           },
     });
 
