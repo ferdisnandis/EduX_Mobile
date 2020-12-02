@@ -34,13 +34,13 @@ const Logout = ({ navigation }) => {
 }
 
 // />
+//<Drawer.Screen name= "Postagens" components={Postagens} />
 //Navegação pelo menu lateral
 const Autenticado = () => {
   return(
     <Drawer.Navigator screenOptions={{headerShown : true }} initialRouteName="Ranking">
       <Drawer.Screen name="Ranking" component={Ranking} />
       <Drawer.Screen name="Turma" component={Turma} />
-      <Drawer.Screen name= "Postagens" components={Postagens} />
       <Drawer.Screen name="Objetivos" component={Objetivos} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>

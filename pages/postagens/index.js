@@ -55,9 +55,6 @@ const Postagens = () => {
 
     return (
         <View styles={styles.container}>
-            <Text>
-                Postagens
-            </Text>
             <FlatList
                 data={dica}
                 renderItem={renderItem}
