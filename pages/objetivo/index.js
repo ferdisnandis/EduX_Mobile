@@ -4,20 +4,20 @@ import { url } from '../../utils/constants';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     item: {
-        backgroundColor: '#f9c2ff',
+        backgroundColor: '#6BFAA0',
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
-    },
-    title: {
-        fontSize: 32,
-    },
+      },
+      title: {
+        fontSize: '16px',
+      },
 });
 
 
@@ -61,15 +61,12 @@ const Objetivo = () => {
 
     return (
         <View styles={styles.container}>
-            <Text>
-                Objetivos
-            </Text>
             <FlatList
                 data={objetivo}
                 renderItem={renderItem}
                 keyExtractor={item => item.Id}
             />
-        </View >
+        </View>
     )
 }
 

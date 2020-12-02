@@ -5,11 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Ranking = () => {
     const [objAluno, setObjetivoAluno] = useState([]);
+    //const [nota, setNota] = useState([]);
     const [alunoTurma, setAlunoTurma] = useState([]);
 
     useEffect(() => {
         ListarObjAluno(),
-            ListarAlunoTurma()
+        ListarAlunoTurma()
     })
 
     const ListarObjAluno = () => {
@@ -21,11 +22,10 @@ const Ranking = () => {
             .then(response => response.json())
             .then(data => {
                 setObjetivoAluno(data.data);
-                console.log(data.data)
             })
-
             .catch(err => console.error(err))
-    }
+    
+        }
 
     const ListarAlunoTurma = () => {
         fetch(url + 'AlunoTurma', {
@@ -40,21 +40,41 @@ const Ranking = () => {
             .catch(err => console.error(err))
     }
 
-    const Item = ({ nota }) => (
-        <View style={styles.item}>
-            <Text style={styles.title}>{nota}</Text>
-        </View>
-    );
+        const renderItem = ({ item }) => (
+            <Item nota={item.nota} nome={item.alunoTurma.usuario.nome} />
+            );
 
-    const renderItem = ({ item }) => (
-        <Item nota={item.nota} />
-    );
+        const Item = ({ nota, nome }) => (
+            <View style={styles.item}>
+              <Text style={styles.title}>{nota}</Text>
+              <Text style={styles.title}>{nome}</Text> 
+            </View>
+          );
 
-    return (
-        <View styles={styles.container}>
-            <Text>Ranking</Text>
-            <FlatList
-                data={objAluno}
+        //  const OrdenarNumero = () => {
+        //      objAluno.sort(function (a, b) {
+        //          if (a.nota > b.nota){
+        //              return 1;
+        //          }
+        //          if (a.nota > b.nota) {
+        //              return -1
+        //          }
+        //          return 0
+        //      });
+        //      console.log(objAluno.nota)
+        //  }
+
+           const Ordenar = () => {
+             objAluno.sort(function (a, b) {
+                 return a.nota - b.nota
+             })
+             console.log(objAluno);
+           }
+
+        return (
+            <View styles={styles.container}>
+                <FlatList
+                data={objAluno.sort((a, b) => b.nota - a.nota)}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
@@ -62,23 +82,23 @@ const Ranking = () => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    item: {
-        backgroundColor: '#f9c2ff',
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
-    },
-    title: {
-        fontSize: 32,
-    },
-});
+    const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          backgroundColor: '#fff',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        item: {
+            backgroundColor: '#6BFAA0',
+            padding: 20,
+            marginVertical: 8,
+            marginHorizontal: 16,
+          },
+          title: {
+            fontSize: '16px',
+          },
+    });
 
 
 export default Ranking;

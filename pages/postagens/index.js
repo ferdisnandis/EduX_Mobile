@@ -102,7 +102,7 @@ const Postagens = () => {
                 renderItem={renderItem}
                 keyExtractor={item => item.Id}
             />
-        </View >
+        </View>
     )
 }
 
