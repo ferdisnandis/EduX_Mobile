@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, FlatList, Text, StyleSheet, SafeAreaView, TextInput, Button } from 'react-native';
 import { url } from '../../utils/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
     container: {
@@ -17,19 +18,25 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
-    },
+        textAlign: 'center',
+    }
 });
 
 
 const Postagens = () => {
     const [dica, setDicas] = useState([]);
+    const [texto, setTexto] = useState('');
 
     useEffect(() => {
         ListarDicas()
-    },[])
+    }, [])
+
+    function refreshPage() {
+        window.location.reload(false);
+    }
 
     const ListarDicas = () => {
-        fetch( url + 'dica', {
+        fetch(url + 'dica', {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -43,9 +50,30 @@ const Postagens = () => {
             .catch(err => console.error(err))
     }
 
+    async function GetIdUsuario() {
+        return await AsyncStorage.getAllKeys();
+    }
+
+    async function SalvarDicas(event) {
+        event.preventDefault();
+        let formdata = new FormData();
+        let idUsusario = await AsyncStorage.getItem('idUsuario');
+        formdata.append('IdUsuario', idUsusario);
+        formdata.append('Texto', texto);
+        fetch(url + 'dica', {
+            method: 'POST',
+            body: formdata,
+        })
+            .catch(err => console.error(err))
+    }
+
+    // const Salvar = () => {
+    //    SalvarDicas();
+    // }
+
     const Item = ({ texto }) => (
         <View style={styles.item}>
-            <Text style={styles.title}>{texto}</Text>
+            <Text>{texto}</Text>
         </View>
     );
 
@@ -54,10 +82,21 @@ const Postagens = () => {
     );
 
     return (
-        <View styles={styles.container}>
-            <Text>
-                Postagens
+        <View style={styles.container}>
+            <Text style={styles.title}>
+                TimeLine               
             </Text>
+            <TextInput
+                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                onChangeText={event => setTexto(event)}
+                value={texto}
+            />
+            <Button
+                title="Enviar"
+                color="#f194ff"
+                onPress={event => { SalvarDicas(event) }}
+                onPress={refreshPage}
+            />
             <FlatList
                 data={dica}
                 renderItem={renderItem}
