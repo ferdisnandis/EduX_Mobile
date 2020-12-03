@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { url } from '../../utils/constants'
 
 const styles = StyleSheet.create({
     container: {
@@ -43,8 +44,8 @@ const Turma = () => {
 
     const Item = ( { descricao } ) => {
         return (
-            <View style={style.item}>
-                <Text style={style.title}>{descricao}</Text>
+            <View style={styles.item}>
+                <Text style={styles.title}>{descricao}</Text>
             </View>
         )
     };
@@ -56,7 +57,7 @@ const Turma = () => {
     };
 
     return (
-        <View style={style.container}>
+        <View style={styles.container}>
             <FlatList
             data={turma}
             renderItem={renderItem}
