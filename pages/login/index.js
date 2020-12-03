@@ -19,7 +19,7 @@ const Login = ({ navigation }) => {
         }
     }
 
-    async function logarUsuario(){
+    async function logarUsuario() {
         const corpo = {
             Email: email,
             Senha: senha
@@ -30,14 +30,20 @@ const Login = ({ navigation }) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(corpo)
-        });
-        const token = await response.json();
-        let usuario = jwt_decode(token.token);
-        await AsyncStorage.setItem('salvarToken', token);
-        await AsyncStorage.setItem('email', usuario.email);
-        await AsyncStorage.setItem('idUsuario', usuario.unique_name);
+        })
 
-        navigation.push('Autenticado');
+        if (response.ok) {
+            const token = await response.json();
+            let usuario = jwt_decode(token.token);
+            await AsyncStorage.setItem('salvarToken', token);
+            await AsyncStorage.setItem('email', usuario.email);
+            await AsyncStorage.setItem('idUsuario', usuario.unique_name);
+            navigation.push('Autenticado');
+            alert('Seja Bem vindo')
+        } else {
+            alert('Dados inválidos')
+        }
+
 
     }
 

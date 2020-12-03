@@ -67,6 +67,7 @@ const Postagens = () => {
                 if (response !== false) {
                     alert('Dica registrada')
                     ListarDicas()
+                    setTexto('')
                 }
                 else {
                     alert('Dica não registrada')
