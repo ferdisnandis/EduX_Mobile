@@ -18,6 +18,11 @@ const styles = StyleSheet.create({
       title: {
         fontSize: '16px',
       },
+      titulo: {
+          fontSize: '20px',
+          textAlign: 'center',
+          color: 'purple'
+      }
 });
 
 
@@ -61,6 +66,7 @@ const Objetivo = () => {
 
     return (
         <View styles={styles.container}>
+        <Text styles={styles.titulo}>Objetivos</Text>
             <FlatList
                 data={objetivo}
                 renderItem={renderItem}
