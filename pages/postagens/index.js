@@ -71,6 +71,7 @@ const Postagens = () => {
                 }
                 else {
                     alert('Dica não registrada')
+                    setTexto('')
                 }
             })
 
