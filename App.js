@@ -14,6 +14,7 @@ import Turma from './pages/turma'
 import Ranking from './pages/ranking'
 import Postagens from './pages/postagens'
 import Objetivos from './pages/objetivo'
+import Alunos from './pages/alunos'
 
 //Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -43,6 +44,7 @@ const Autenticado = () => {
       <Drawer.Screen name="Turma" component={Turma} />
       <Drawer.Screen name="Objetivos" component={Objetivos} />
       <Drawer.Screen name="Postagens" component={Postagens} />
+      <Drawer.Screen name="Alunos" component={Alunos} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   )

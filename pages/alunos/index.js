@@ -1,59 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { url } from '../../utils/constants'
+
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     item: {
         backgroundColor: '#6BFAA0',
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
-      },
-      title: {
+    },
+    title: {
         fontSize: '16px',
-      },
+    },
 });
 
 const Alunos = () => {
-    const [alunos , setAlunos] = useStates([]);
-    
-    useEffect( () => {
+    const [alunos, setAlunos] = useState([]);
+
+    useEffect(() => {
         ListarAlunos()
-    } , [] )
+    }, [])
 
     const ListarAlunos = () => {
-        fetch( url + 'alunos' , {
+        fetch(url + 'alunoturma', {
             headers: {
-                'Constent-Type' : 'application/json'
+                'Constent-Type': 'application/json'
             }
-        } )
-            .then( response => response.json() )
-            .then( data => {
-                setAlunos( data.data );
-                console.log( data.data )
-            } )
+        })
+            .then(response => response.json())
+            .then(data => {
+                setAlunos(data.data);
+                console.log(data.data[0].usuario.nome)
+            })
 
-            .catch( err => console.error(err) )
+            .catch(err => console.error(err))
     }
 
-    const Item = ( {descricao} ) => {
+    const Item = ({ descricao }) => {
         return (
-            <View style={style.item}>
-                <Text style={style.title}> {descricao} </Text>
+            <View style={styles.item}>
+                <Text style={styles.title}> {descricao} </Text>
             </View>
         )
     };
+
+    const renderItem = ({ item }) => {
+        return (
+            <Item descricao={item.usuario.nome} />
+        )
+    };
     return (
-        <View style={style.container}>
+        <View style={styles.container}>
             <FlatList
-            data={objetivo}
-            renderItem={renderItem}
-            keyExtractor={item => item.Id}
+                data={alunos}
+                renderItem={renderItem}
+                keyExtractor={item => item.Id}
             />
         </View>
     )
