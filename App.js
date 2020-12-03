@@ -42,6 +42,7 @@ const Autenticado = () => {
       <Drawer.Screen name="Ranking" component={Ranking} />
       <Drawer.Screen name="Turma" component={Turma} />
       <Drawer.Screen name="Objetivos" component={Objetivos} />
+      <Drawer.Screen name="Postagens" component={Postagens} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   )

@@ -36,8 +36,7 @@ const Login = ({ navigation }) => {
         await AsyncStorage.setItem('salvarToken', token);
         await AsyncStorage.setItem('email', usuario.email);
         await AsyncStorage.setItem('idUsuario', usuario.unique_name);
-        console.log(await AsyncStorage.getAllKeys());
-        console.log(await AsyncStorage.getItem('idUsuario'));
+
         navigation.push('Autenticado');
 
     }

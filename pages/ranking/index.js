@@ -11,7 +11,7 @@ const Ranking = () => {
     useEffect(() => {
         ListarObjAluno(),
         ListarAlunoTurma()
-    })
+    },[])
 
     const ListarObjAluno = () => {
         fetch(url + 'ObjetivoAluno', {

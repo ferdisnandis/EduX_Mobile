@@ -31,10 +31,6 @@ const Postagens = () => {
         ListarDicas()
     }, [])
 
-    function refreshPage() {
-        window.location.reload(false);
-    }
-
     const ListarDicas = () => {
         fetch(url + 'dica', {
             headers: {
@@ -50,26 +46,36 @@ const Postagens = () => {
             .catch(err => console.error(err))
     }
 
-    async function GetIdUsuario() {
-        return await AsyncStorage.getAllKeys();
-    }
-
     async function SalvarDicas(event) {
         event.preventDefault();
+        
         let formdata = new FormData();
+        
         let idUsusario = await AsyncStorage.getItem('idUsuario');
+        
         formdata.append('IdUsuario', idUsusario);
         formdata.append('Texto', texto);
+        
         fetch(url + 'dica', {
             method: 'POST',
             body: formdata,
         })
+
+            .then(response => response.json())
+
+            .then(response => {
+                if (response !== false) {
+                    alert('Dica registrada')
+                    ListarDicas()
+                }
+                else {
+                    alert('Dica não registrada')
+                }
+            })
+
             .catch(err => console.error(err))
     }
 
-    // const Salvar = () => {
-    //    SalvarDicas();
-    // }
 
     const Item = ({ texto }) => (
         <View style={styles.item}>
@@ -83,25 +89,29 @@ const Postagens = () => {
 
     return (
         <View style={styles.container}>
+
             <Text style={styles.title}>
-                TimeLine               
+                TimeLine
             </Text>
+
             <TextInput
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                 onChangeText={event => setTexto(event)}
                 value={texto}
             />
+
             <Button
                 title="Enviar"
                 color="#f194ff"
                 onPress={event => { SalvarDicas(event) }}
-                onPress={refreshPage}
             />
+
             <FlatList
                 data={dica}
                 renderItem={renderItem}
                 keyExtractor={item => item.Id}
             />
+
         </View>
     )
 }
