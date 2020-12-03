@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 });
 
 const Turma = () => {
-    const [turma , setObjetivo] = useState ([]) ;
+    const [turma , setTurma] = useState ([]) ;
 
     useEffect( () => {
         ListarTurmas()
