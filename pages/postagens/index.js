@@ -1,26 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Text, StyleSheet, SafeAreaView, TextInput, Button } from 'react-native';
+import { View, FlatList, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import { url } from '../../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    input: {
+        width: '70%',
+        backgroundColor: 'white',
+        height: 40,
+        borderColor: 'black',
+        borderWidth: 1,
+        marginTop: 20,
+        marginLeft: '50px',
+        marginRight: '50px',
+        padding: 5,
+        borderRadius: 6,
+        fontSize: '15px'
+    },
+    button: {
         alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#410A59',
+        color: 'white',
+        padding: 8,
+        marginTop: '15px',
+        marginLeft: '50px',
+        marginRight: '50px',
+        borderRadius: 5
     },
     item: {
-        backgroundColor: '#f9c2ff',
+        backgroundColor: '#B126DE',
         padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
-    },
-    title: {
-        fontSize: 32,
-        textAlign: 'center',
-    }
-});
+        marginVertical: 15,
+        marginHorizontal: 20,
+      },
+      title: {
+        fontSize: '16px',
+        textAlign:'center',
+        color: 'white',
+      },
+      titulo: {
+          padding : 15,
+          textAlign: 'center',
+          fontSize: '20px',
+          color: 'white',
+          backgroundColor: '#F2CF63',
+      }
+    });
 
 
 const Postagens = () => {
@@ -81,7 +111,7 @@ const Postagens = () => {
 
     const Item = ({ texto }) => (
         <View style={styles.item}>
-            <Text>{texto}</Text>
+            <Text style={styles.title} >{texto}</Text>
         </View>
     );
 
@@ -90,23 +120,22 @@ const Postagens = () => {
     );
 
     return (
-        <View style={styles.container}>
+        <View styles={styles.container}>
 
-            <Text style={styles.title}>
-                TimeLine
-            </Text>
+            <Text style={styles.titulo}><b>TimeLine</b></Text>
 
             <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                style={styles.input}
+               // style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                 onChangeText={event => setTexto(event)}
                 value={texto}
             />
 
-            <Button
-                title="Enviar"
-                color="#f194ff"
+            <TouchableOpacity
+                style={styles.button}
                 onPress={event => { SalvarDicas(event) }}
-            />
+            ><Text style={{color: 'white'}}>Publicar</Text>
+            </TouchableOpacity>
 
             <FlatList
                 data={dica}

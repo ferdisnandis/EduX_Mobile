@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 //import { Screen, screensEnabled } from 'react-native-screens';
 
 //Navegação
@@ -34,10 +34,12 @@ const Logout = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Deseja realmente sair da aplicação?</Text>
-      <Button title="Sair" onPress={() => {
+
+      <TouchableOpacity style={styles.button}  
+      onPress={() => {
         AsyncStorage.removeItem('@jwt');
-        navigation.push('Login');
-      }} />
+        navigation.push('Login');  
+      }}><Text style={{color: 'white'}}><b>Sair</b></Text></TouchableOpacity>
     </View>
   )
 }
@@ -49,6 +51,7 @@ const Logout = ({ navigation }) => {
 const Autenticado = () => {
   return(
 <Tab.Navigator
+        style={styles.tab}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -114,8 +117,20 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  tab: {
+    backgroundColor: '#6147F5',
+    width: '20px',
+    height: '20px'
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#410A59',
+    color: 'white',
+    padding: 8,
+    marginTop: '15px',
+    borderRadius: 5
+  }
 });

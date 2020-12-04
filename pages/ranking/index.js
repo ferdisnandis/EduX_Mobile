@@ -41,13 +41,13 @@ const Ranking = () => {
     }
 
         const renderItem = ({ item }) => (
-            <Item nota={item.nota} nome={item.alunoTurma.usuario.nome} />
+            <Item nota={item.nota} nome={item.alunoTurma.usuario.nome} obj={item.objetivo.descricao}/>
             );
 
-        const Item = ({ nota, nome }) => (
+        const Item = ({ nota, nome, obj }) => (
             <View style={styles.item}>
-              <Text style={styles.title}>{nota}</Text>
-              <Text style={styles.title}>{nome}</Text> 
+              <Text style={styles.title}>{nome} - {obj} </Text>
+              <Text style={styles.title}>{nota}</Text> 
             </View>
           );
 
@@ -72,7 +72,8 @@ const Ranking = () => {
            }
 
         return (
-            <View styles={styles.container}>
+        <View styles={styles.container}>
+            <Text style={styles.titulo}><b>Ranking</b></Text>
                 <FlatList
                 data={objAluno.sort((a, b) => b.nota - a.nota)}
                 renderItem={renderItem}
@@ -85,19 +86,27 @@ const Ranking = () => {
     const styles = StyleSheet.create({
         container: {
           flex: 1,
-          backgroundColor: '#fff',
           alignItems: 'center',
           justifyContent: 'center',
         },
         item: {
-            backgroundColor: '#6BFAA0',
+            backgroundColor: '#B126DE',
             padding: 20,
-            marginVertical: 8,
-            marginHorizontal: 16,
+            marginVertical: 15,
+            marginHorizontal: 20,
           },
           title: {
             fontSize: '16px',
+            textAlign:'center',
+            color: 'white',
           },
+          titulo: {
+              padding : 15,
+              textAlign: 'center',
+              fontSize: '20px',
+              color: 'white',
+              backgroundColor: '#F2CF63',
+          }
     });
 
 
