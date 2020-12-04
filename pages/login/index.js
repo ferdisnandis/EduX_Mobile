@@ -39,7 +39,7 @@ const Login = ({ navigation }) => {
             await AsyncStorage.setItem('email', usuario.email);
             await AsyncStorage.setItem('idUsuario', usuario.unique_name);
             navigation.push('Autenticado');
-            alert('Seja Bem vindo')
+            alert('Bem Vind@!')
         } else {
             alert('Dados inválidos')
         }

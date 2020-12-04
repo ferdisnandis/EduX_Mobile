@@ -10,21 +10,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     item: {
-        backgroundColor: '#6BFAA0',
+        backgroundColor: '#B126DE',
         padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
+        marginVertical: 15,
+        marginHorizontal: 20,
     },
     title: {
         fontSize: '16px',
+        textAlign: 'center',
+        color: 'white',
     },
     titulo: {
-        fontSize: '20px',
+        padding: 15,
         textAlign: 'center',
-        color: 'purple'
+        fontSize: '20px',
+        color: 'white',
+        backgroundColor: '#F2CF63',
     }
 });
-
 
 const Objetivo = () => {
     const [objetivo, setObjetivo] = useState([]);
@@ -66,13 +69,7 @@ const Objetivo = () => {
 
     return (
         <View styles={styles.container}>
-            <Text styles={{
-                fontSize: '20px',
-                textAlign: 'center',
-                color: 'purple'
-            }}>
-                Objetivos
-            </Text>
+            <Text style={styles.titulo}><b>Objetivos</b></Text>
             <FlatList
                 data={objetivo}
                 renderItem={renderItem}

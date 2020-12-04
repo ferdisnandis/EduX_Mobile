@@ -6,19 +6,27 @@ import { url } from '../../utils/constants'
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
     },
     item: {
-        backgroundColor: '#6BFAA0',
+        backgroundColor: '#B126DE',
         padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
+        marginVertical: 15,
+        marginHorizontal: 20,
       },
       title: {
         fontSize: '16px',
+        textAlign:'center',
+        color: 'white',
       },
+      titulo: {
+          padding : 15,
+          textAlign: 'center',
+          fontSize: '20px',
+          color: 'white',
+          backgroundColor: '#F2CF63',
+      }
 });
 
 const Turma = () => {
@@ -57,10 +65,15 @@ const Turma = () => {
     };
 
     return (
+<<<<<<< HEAD
         <View style={styles.container}>
             <Text>
                 Turma
             </Text>
+=======
+        <View styles={styles.container}>
+         <Text style={styles.titulo}><b>Turma</b></Text>
+>>>>>>> 164dec7e15e9c603890f4f021a1335086fa94221
             <FlatList
             data={turma}
             renderItem={renderItem}
