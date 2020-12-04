@@ -4,25 +4,25 @@ import { url } from '../../utils/constants';
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     item: {
         backgroundColor: '#6BFAA0',
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
-      },
-      title: {
+    },
+    title: {
         fontSize: '16px',
-      },
-      titulo: {
-          fontSize: '20px',
-          textAlign: 'center',
-          color: 'purple'
-      }
+    },
+    titulo: {
+        fontSize: '20px',
+        textAlign: 'center',
+        color: 'purple'
+    }
 });
 
 
@@ -31,11 +31,11 @@ const Objetivo = () => {
 
     useEffect(() => {
         ListarObjetivos()
-    },[])
+    }, [])
 
 
     const ListarObjetivos = () => {
-        fetch( url +'objetivo', {
+        fetch(url + 'objetivo', {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -66,7 +66,13 @@ const Objetivo = () => {
 
     return (
         <View styles={styles.container}>
-        <Text styles={styles.titulo}>Objetivos</Text>
+            <Text styles={{
+                fontSize: '20px',
+                textAlign: 'center',
+                color: 'purple'
+            }}>
+                Objetivos
+            </Text>
             <FlatList
                 data={objetivo}
                 renderItem={renderItem}

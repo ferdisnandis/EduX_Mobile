@@ -51,19 +51,6 @@ const Ranking = () => {
             </View>
           );
 
-        //  const OrdenarNumero = () => {
-        //      objAluno.sort(function (a, b) {
-        //          if (a.nota > b.nota){
-        //              return 1;
-        //          }
-        //          if (a.nota > b.nota) {
-        //              return -1
-        //          }
-        //          return 0
-        //      });
-        //      console.log(objAluno.nota)
-        //  }
-
            const Ordenar = () => {
              objAluno.sort(function (a, b) {
                  return a.nota - b.nota

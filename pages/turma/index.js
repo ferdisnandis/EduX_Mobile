@@ -58,6 +58,9 @@ const Turma = () => {
 
     return (
         <View style={styles.container}>
+            <Text>
+                Turma
+            </Text>
             <FlatList
             data={turma}
             renderItem={renderItem}
